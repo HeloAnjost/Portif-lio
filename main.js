@@ -6,25 +6,7 @@ setInterval(() => {
   greetIndex = (greetIndex + 1) % greetings.length;
 }, 1200);
 
-// Alto contraste
-document.getElementById("accessibility-btn").addEventListener("click", function () {
-  document.body.classList.toggle("high-contrast");
-  // Desativa tema escuro se ativar alto contraste
-  if (document.body.classList.contains("high-contrast")) {
-    document.body.classList.remove("dark-theme");
-    document.getElementById("theme-icon").textContent = "🌙";
-  }
-});
 
-// Tema claro/escuro
-document.getElementById("theme-toggle-btn").addEventListener("click", function () {
-  // Não ativa tema escuro se alto contraste estiver ligado
-  if (!document.body.classList.contains("high-contrast")) {
-    document.body.classList.toggle("dark-theme");
-    document.getElementById("theme-icon").textContent =
-      document.body.classList.contains("dark-theme") ? "☀️" : "🌙";
-  }
-});
 
 // Navegação suave
 document.querySelectorAll(".nav-links a").forEach((link) => {
