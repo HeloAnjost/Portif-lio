@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+  <title>Portfólio | Desenvolvedora de Sistemas</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="icon" href="favicon.ico" />
+  <style>
+    /* Timeline diferenciada */
+    .timeline {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      border-left: 4px solid var(--accent);
+      position: relative;
+    }
+    .timeline li {
+      margin-bottom: 2em;
+      position: relative;
+      min-height: 60px;
+    }
+    .timeline-marker {
+      position: absolute;
+      left: -21px;
+      top: 10px;
+      width: 36px;
+      height: 36px;
+      font-size: 1.5em;
+      background: var(--background-alt);
+      border-radius: 50%;
+      border: 3px solid var(--accent);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 0 0 4px var(--background-alt);
+      z-index: 1;
+    }
+    .timeline-content {
+      margin-left: 30px;
+      background: var(--background-alt);
+      border-radius: 10px;
+      padding: 0.7em 1em;
+      box-shadow: var(--shadow);
+    }
+    .timeline-year {
+      font-weight: bold;
+      color: var(--accent);
+      font-size: 1.1em;
+    }
+    .timeline-title {
+      font-size: 1.08em;
+      font-weight: 600;
+      margin: 0.2em 0 0.1em 0;
+    }
+    .timeline-desc {
+      color: var(--primary);
+      font-size: 1em;
+      opacity: 0.95;
+    }
+
+    /* Soft Skills cards */
+    .soft-skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1.2em;
+      margin-top: 1em;
+    }
+    .soft-skill-card {
+      background: var(--white);
+      border-radius: 12px;
+      box-shadow: var(--shadow);
+      display: flex;
+      align-items: flex-start;
+      gap: 1em;
+      padding: 1em 1em 1em 0.9em;
+      min-height: 90px;
+      transition: box-shadow .2s, transform .2s;
+      animation: fadeInUp 0.7s;
+    }
+    .soft-skill-card:hover, .soft-skill-card:focus-within {
+      box-shadow: 0 8px 24px rgba(239, 35, 60, 0.14);
+      transform: scale(1.04);
+    }
+    .soft-icon {
+      font-size: 2em;
+      margin-top: 0.2em;
+      color: var(--accent);
+    }
+    .soft-skill-card strong {
+      font-size: 1.05em;
+      color: var(--primary);
+    }
+    .soft-skill-card p {
+      margin: 0.2em 0 0 0;
+      font-size: 0.98em;
+      color: var(--primary);
+      opacity: 0.9;
+    }
+
+    /* Modal de contato */
+    .contact-modal,
+    .modal-overlay {
+      display: none;
+    }
+    .contact-modal {
+      position: fixed;
+      z-index: 2000;
+      left: 0; top: 0; right: 0; bottom: 0;
+      margin: auto;
+      width: 100%;
+      max-width: 410px;
+      background: var(--white);
+      border-radius: 14px;
+      box-shadow: 0 8px 32px rgba(35,41,70,0.25);
+      padding: 2em 1.5em 1.5em 1.5em;
+      animation: fadeIn .4s;
+      outline: none;
+    }
+    .contact-modal-content {
+      position: relative;
+    }
+    .close-modal {
+      position: absolute;
+      right: 0.2em;
+      top: 0.2em;
+      background: none;
+      border: none;
+      font-size: 2em;
+      color: var(--primary);
+      cursor: pointer;
+    }
+    .modal-overlay {
+      position: fixed;
+      left: 0; top: 0; right: 0; bottom: 0;
+      background: rgba(35,41,70,0.25);
+      z-index: 1999;
+    }
+    @media (max-width: 600px) {
+      .contact-modal { max-width: 97vw; }
+    }
+  </style>
+</head>
+<body>
+  <!-- Navbar -->
+  <nav class="navbar" aria-label="Navegação principal">
+    <div class="nav-logo">
+      <img src="Imagens/20250515_0745_Logo Tecnológica e Moderna_remix_01jv9rr90se4ba8sa1qnh1dgxs (2).png" width="32" alt="Foto de Perfil" class="logo-img" />
+      <span>Heloísa Anjos Teixeira</span>
+    </div>
+    <ul class="nav-links" role="menubar">
+      <li><a href="#home" role="menuitem" tabindex="0">Início</a></li>
+      <li><a href="#sobre" role="menuitem" tabindex="0">Sobre</a></li>
+      <li><a href="#skills" role="menuitem" tabindex="0">Skills</a></li>
+      <li><a href="#projetos" role="menuitem" tabindex="0">Projetos</a></li>
+      <li><a href="#contato" role="menuitem" tabindex="0">Contato</a></li>
+    </ul>
+    <div class="social-area">
+      <a href="https://github.com/HeloAnjost" target="_blank" aria-label="GitHub" rel="noopener">
+        <img src="https://bitperfect.at/assets/blog-images/Headerbild-Was-ist-GitHub-v2.png" width="28" alt="GitHub" />
+      </a>
+     
+      <a href="https://www.instagram.com/hls.anjos?igsh=N2dpYTF3ajMyNWt3" target="_blank" aria-label="Instagram" rel="noopener">
+        <img src="Imagens/Instagram_icon.png" width="28" alt="Instagram" />
+      </a>
+      <a href="https://mail.google.com/mail/u/0/#inbox?compose=GTvVlcRzBWWrsxVfrrbKqPhSzjrKvXLzMLhsCBTKKrmWSxgthWjmSShmTtJtbbrDZwGsrTFsxbQjs" aria-label="E-mail">
+        <img src="https://cdn.simpleicons.org/gmail/fff/232946" width="28" alt="E-mail" />
+      </a>
+    </div>
+  </nav>
+
+  <div class="floating-buttons">
+    <button id="accessibility-btn" aria-label="Ativar alto contraste" title="Ativar alto contraste">
+      🦇
+      <span class="acess-tooltip">Alto Contraste</span>
+    </button>
+    
+  </div>
+  
+
+  <!-- Hero / Início -->
+  <section id="home" class="hero" aria-label="Apresentação">
+    <div class="hero-content">
+      <img src="Imagens/IMG_20250419_212443_137.jpg" alt="Foto de Perfil" class="hero-img" />
+      <div>
+        <h1 class="highlight">Transformando ideias em <span class="highlight">soluções digitais</span></h1>
+        <h2 id="greeting" aria-live="polite">👋</h2>
+        <p>
+          Sou uma desenvolvedora de sistemas dedicada, com sólida experiência em transformar desafios complexos em soluções digitais intuitivas e eficientes. Minha paixão por tecnologia é alimentada pela curiosidade constante e pelo compromisso com a qualidade e acessibilidade.
+        </p>
+        <div class="hero-social" aria-label="Redes sociais">
+          <a href="https://github.com/HeloAnjost" target="_blank" aria-label="GitHub" rel="noopener">
+            <img src="https://bitperfect.at/assets/blog-images/Headerbild-Was-ist-GitHub-v2.png" width="50px"  alt="GitHub" />
+          </a>
+         
+          <a href="https://www.instagram.com/hls.anjos?igsh=N2dpYTF3ajMyNWt3" target="_blank" aria-label="Instagram" rel="noopener">
+            <img src="Imagens/download (6).jpg" width="32" alt="Instagram" />
+          </a>
+          <a href="https://mail.google.com/mail/u/0/#inbox?compose=GTvVlcRzBWWrsxVfrrbKqPhSzjrKvXLzMLhsCBTKKrmWSxgthWjmSShmTtJtbbrDZwGsrTFsxbQjs" aria-label="E-mail">
+            <img src="https://cdn.simpleicons.org/gmail/232946/eebbc3" width="32" alt="E-mail" />
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Sobre Mim -->
+  <section id="sobre" class="section section-bg" aria-labelledby="titulo-sobre">
+    <h2 id="titulo-sobre">Sobre Mim</h2>
+    <div class="about-interactive">
+      <div class="about-cards">
+        <div class="about-card" tabindex="0">
+          <span class="about-icon">💡</span>
+          <span class="about-title">Curiosa & Aprendiz</span>
+          <span class="about-desc">Sempre buscando novas tecnologias e soluções inovadoras.</span>
+        </div>
+        <div class="about-card" tabindex="0">
+          <span class="about-icon">🤝</span>
+          <span class="about-title">Colaborativa</span>
+          <span class="about-desc">Valorizo o trabalho em equipe e a comunicação clara.</span>
+        </div>
+        <div class="about-card" tabindex="0">
+          <span class="about-icon">♿</span>
+          <span class="about-title">Acessibilidade</span>
+          <span class="about-desc">Comprometida com produtos acessíveis para todos.</span>
+        </div>
+        <div class="about-card" tabindex="0">
+          <span class="about-icon">🎯</span>
+          <span class="about-title">Foco em Resultados</span>
+          <span class="about-desc">Entrego soluções que realmente fazem a diferença.</span>
+        </div>
+      </div>
+      <div class="about-timeline">
+        <h3>Minha Jornada</h3>
+        <ol class="timeline">
+          <li>
+            <div class="timeline-marker">🚀</div>
+            <div class="timeline-content">
+              <span class="timeline-year">2023</span>
+              <div class="timeline-title">Primeiros Passos</div>
+              <div class="timeline-desc">Iniciei na programação e desenvolvi projetos pessoais para aprender na prática.</div>
+            </div>
+          </li>
+          <li>
+            <div class="timeline-marker">💻</div>
+            <div class="timeline-content">
+              <span class="timeline-year">2024</span>
+              <div class="timeline-title">Estágio em Web</div>
+              <div class="timeline-desc">Desenvolvi diversas habilidades no curso técnico do Senai.</div>
+            </div>
+          </li>
+          <li>
+            <div class="timeline-marker">🌍</div>
+            <div class="timeline-content">
+              <span class="timeline-year">2025</span>
+              <div class="timeline-title">Projetos Sociais</div>
+              <div class="timeline-desc">Atuei em projetos participativos, aprimorando minhas habilidades cada vez mais.</div>
+            </div>
+          </li>
+          <li>
+           
+          </li>
+        </ol>
+      </div>
+     
+    </div>
+  </section>
+
+  <!-- Skills -->
+  <section id="skills" class="section section-bg-alt" aria-labelledby="titulo-skills">
+    <h2 id="titulo-skills">Skills</h2>
+    <div class="tabs" role="tablist" aria-label="Categorias de Skills">
+      <button class="tab-btn active" aria-selected="true" aria-controls="hard" id="tab-hard" tabindex="0">Hard Skills</button>
+      <button class="tab-btn" aria-selected="false" aria-controls="soft" id="tab-soft" tabindex="-1">Soft Skills</button>
+    </div>
+    <!-- Hard Skills -->
+    <div class="tab-panel" id="hard" role="tabpanel" aria-labelledby="tab-hard">
+      <ul class="skills-list" id="skills-list"></ul>
+    </div>
+    <!-- Soft Skills -->
+    <div class="tab-panel hidden" id="soft" role="tabpanel" aria-labelledby="tab-soft">
+      <div class="soft-skills-grid">
+        <div class="soft-skill-card">
+          <span class="soft-icon">🗣️</span>
+          <div>
+            <strong>Comunicação</strong>
+            <p>Clareza na troca de ideias, escuta ativa e feedback construtivo.</p>
+          </div>
+        </div>
+        <div class="soft-skill-card">
+          <span class="soft-icon">💡</span>
+          <div>
+            <strong>Criatividade</strong>
+            <p>Proponho soluções inovadoras para desafios técnicos e de UX.</p>
+          </div>
+        </div>
+        <div class="soft-skill-card">
+          <span class="soft-icon">🧠</span>
+          <div>
+            <strong>Resolução de problemas</strong>
+            <p>Analiso, pesquiso e implemento soluções eficientes para obstáculos.</p>
+          </div>
+        </div>
+        <div class="soft-skill-card">
+          <span class="soft-icon">⏱️</span>
+          <div>
+            <strong>Gestão do tempo</strong>
+            <p>Priorizo tarefas, cumpro prazos e mantenho a produtividade.</p>
+          </div>
+        </div>
+        <div class="soft-skill-card">
+          <span class="soft-icon">🤝</span>
+          <div>
+            <strong>Trabalho em equipe</strong>
+            <p>Colaboro de forma positiva e respeito a diversidade de ideias.</p>
+          </div>
+        </div>
+        <div class="soft-skill-card">
+          <span class="soft-icon">🚀</span>
+          <div>
+            <strong>Autonomia</strong>
+            <p>Aprendo rápido e tomo iniciativa para evoluir sempre.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Projetos -->
+  <section id="projetos" class="section section-bg" aria-labelledby="titulo-projetos">
+    <h2 id="titulo-projetos">Projetos</h2>
+    <div class="filter-buttons" role="group" aria-label="Filtrar projetos por tecnologia">
+      <button class="filter-btn active" data-filter="all" aria-pressed="true">Todos</button>
+     
+      
+    </div>
+    <div class="projetos-grid">
+      <div class="card projeto-card" data-tech="React, Node.js" tabindex="0" aria-label="Projeto: Dashboard Analytics">
+        <img src="Imagens/Captura de tela 2025-05-15 081413.png" alt="Preview do projeto Dashboard Analytics" class="project-img" />
+        <div class="card-content">
+          <h3>App Previsão do Tempo</h3>
+          <div class="tech-list">
+            <span class="tech-tag">HTML</span>
+            <span class="tech-tag">CSS</span>
+            <span class="tech-tag">API</span>
+            <span class="tech-tag">JavaScript</span>
+          </div>
+          <p class="project-desc">App para acompanhar a previsão do tempo de acordo com a cidade que você esteja.</p>
+          <details>
+            <summary>Ver mais detalhes</summary>
+            <ul>
+              <li>Temperatura em graus °C</li>
+              <li>Clima do dia</li>
+              <li>Umidade</li>
+              <li>Velocidade dos ventos</li>
+            </ul>
+          </details>
+          <div class="card-links">
+            <a href="https://github.com/HeloAnjost/PrevisaoApp" target="_blank" rel="noopener" aria-label="Ver código no GitHub">GitHub</a>
+            <a href="https://heloanjost.github.io/PrevisaoApp/" target="_blank" rel="noopener" aria-label="Ver projeto online">Demo</a>
+          </div>
+        </div>
+      </div>
+      <div class="card projeto-card" data-tech="HTML, CSS, JavaScript" tabindex="0" aria-label="Projeto: Landing Page Criativa">
+        <img src="Imagens/qufgfdfd.png" alt="Preview do projeto Landing Page Criativa" class="project-img" />
+        <div class="card-content">
+          <h3>Quentinhas do Grau</h3>
+          <div class="tech-list">
+            <span class="tech-tag">HTML</span>
+            <span class="tech-tag">CSS</span>
+            <span class="tech-tag">JavaScript</span>
+         
+          </div>
+          <p class="project-desc">Projeto para um restaurante de quentinhas, informativo e divertido .</p>
+          <details>
+            <summary>Ver mais detalhes</summary>
+            <ul>
+              <li>Ver refeições disponíveis</li>
+              <li>Adicionar ao carrinho</li>
+              <li>Fazer pedidos</li>
+            </ul>
+          </details>
+          <div class="card-links">
+            <a href="https://github.com/HeloAnjost/QuentinhaDoGrau" target="_blank" rel="noopener" aria-label="Ver código no GitHub">GitHub</a>
+            <a href="https://heloanjost.github.io/QuentinhaDoGrau/" target="_blank" rel="noopener" aria-label="Ver projeto online">Demo</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="projetos-grid">
+      <!-- Projeto 1 -->
+      <div class="card projeto-card" data-tech="React, Node.js" tabindex="0" aria-label="Projeto: Dashboard Analytics">
+        <img src="Imagens/Captura de tela 2025-05-14 163253.png" alt="Preview do projeto Dashboard Analytics" class="project-img" />
+        <div class="card-content">
+          <h3>Sweet Blood</h3>
+          <div class="tech-list">
+            <span class="tech-tag">CSS</span>
+            <span class="tech-tag">HTML</span>
+            <span class="tech-tag">JavaScript</span>
+          </div>
+          <p class="project-desc">Site temático de halloween, feito em grupo, que combina a doação de sangue com a alimentação de vampiros.</p>
+          <details>
+            <summary>Ver mais detalhes</summary>
+            <ul>
+              <li>Página de estoque</li>
+              <li>Cadastro seguro</li>
+              <li>Relatos emocionantes</li>
+            </ul>
+          </details>
+          <div class="card-links">
+            
+            <a href="https://albertcarvalho-zimmer.github.io/SweetBlood/" target="_blank" rel="noopener" aria-label="Ver projeto online">Demo</a>
+          </div>
+        </div>
+      </div>
+      <!-- Projeto 2 -->
+      <div class="card projeto-card" data-tech="HTML, CSS, JavaScript" tabindex="0" aria-label="Projeto: Landing Page Criativa">
+        <img src="Imagens/Captura de tela 2025-05-15 091509.png" alt="Preview do projeto Landing Page Criativa" class="project-img" />
+        <div class="card-content">
+          <h3>Lista de Tarefas</h3>
+          <div class="tech-list">
+            <span class="tech-tag">HTML</span>
+            <span class="tech-tag">CSS</span>
+            <span class="tech-tag">JavaScript</span>
+          </div>
+          <p class="project-desc">Site para listar suas tarefas e facilitar sua rotina.</p>
+          <details>
+            <summary>Ver mais detalhes</summary>
+            <ul>
+              <li>Adicionar tarefas</li>
+              <li>Remover as finalizadas</li>
+            
+            </ul>
+          </details>
+          <div class="card-links">
+            <a href="https://github.com/HeloAnjost/ToDoH" target="_blank" rel="noopener" aria-label="Ver código no GitHub">GitHub</a>
+            <a href="https://heloanjost.github.io/ToDoH/" target="_blank" rel="noopener" aria-label="Ver projeto online">Demo</a>
+          </div>
+        </div>
+      </div>
+      <!-- Projeto 3 -->
+      <div class="card projeto-card" data-tech="React, Firebase" tabindex="0" aria-label="Projeto: Chat em Tempo Real">
+        <img src="Imagens/dhffdhfd.png" alt="Preview do projeto Chat em Tempo Real" class="project-img" />
+        <div class="card-content">
+          <h3>Receitas e Despesas</h3>
+          <div class="tech-list">
+            <span class="tech-tag">HTML</span>
+            <span class="tech-tag">CSS</span>
+            <span class="tech-tag">JavaScript</span>
+          </div>
+          <p class="project-desc">Aplicação funcinal para o cadastro de despesas e receitas .</p>
+          <details>
+            <summary>Ver mais detalhes</summary>
+            <ul>
+              <li>Adição de receitas e despesas</li>
+              <li>Saldo final</li>
+            
+            </ul>
+          </details>
+          <div class="card-links">
+            <a href="https://github.com/HeloAnjost/DespesasEReceitas" target="_blank" rel="noopener" aria-label="Ver código no GitHub">GitHub</a>
+            <a href="https://heloanjost.github.io/DespesasEReceitas/" target="_blank" rel="noopener" aria-label="Ver projeto online">Demo</a>
+          </div>
+        </div>
+      </div>
+     
+     
+    
+  </section>
+
+  <!-- Contato Modal Trigger -->
+  <section id="contato" class="section section-bg-alt" aria-labelledby="titulo-contato">
+    <h2 id="titulo-contato">Contato</h2>
+    <button id="open-contact-modal" class="btn-cv" aria-label="Abrir formulário de contato">Abrir formulário</button>
+    <div class="contact-info">
+      <h3>Redes & Contato</h3>
+      <ul>
+        <li>
+          <a href="https://mail.google.com/mail/u/0/#inbox?compose=GTvVlcRzBWWrsxVfrrbKqPhSzjrKvXLzMLhsCBTKKrmWSxgthWjmSShmTtJtbbrDZwGsrTFsxbQjs" aria-label="E-mail">
+            <img src="https://cdn.simpleicons.org/gmail/232946/eebbc3" width="26" alt="E-mail" /> heloisa.t@aluno.senai.br
+          </a>
+        </li>
+        <li>
+          <a href="https://www.instagram.com/hls.anjos?igsh=N2dpYTF3ajMyNWt3" target="_blank" aria-label="Instagram" rel="noopener">
+            <img src="Imagens/download (6).jpg" width="26" alt="Instagram" /> @hls.anjos
+          </a>
+        </li>
+        <li>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- Modal de contato -->
+  <div id="contact-modal" class="contact-modal" aria-modal="true" role="dialog" tabindex="-1">
+    <div class="contact-modal-content">
+      <button id="close-contact-modal" class="close-modal" aria-label="Fechar formulário de contato">&times;</button>
+      <h2>Fale comigo</h2>
+      <form id="contact-form" autocomplete="off" aria-label="Formulário de contato">
+        <label for="nome">Nome</label>
+        <input type="text" id="nome" name="nome" required aria-required="true" />
+        <label for="email">E-mail</label>
+        <input type="email" id="email" name="email" required aria-required="true" />
+        <label for="mensagem">Mensagem</label>
+        <textarea id="mensagem" name="mensagem" rows="4" required aria-required="true"></textarea>
+        <button type="submit"><span>Enviar</span> <span class="enviar-icone">📨</span></button>
+        <div id="form-msg" class="form-msg" aria-live="polite"></div>
+      </form>
+    </div>
+  </div>
+  <div id="modal-overlay" class="modal-overlay"></div>
+
+  <footer>
+    &copy; 2025 Heloísa Anjos. Todos os direitos reservados.
+  </footer>
+
+  <script src="main.js"></script>
+  <script>
+    // Modal de contato
+    const openModalBtn = document.getElementById('open-contact-modal');
+    const closeModalBtn = document.getElementById('close-contact-modal');
+    const contactModal = document.getElementById('contact-modal');
+    const modalOverlay = document.getElementById('modal-overlay');
+
+    openModalBtn.onclick = function() {
+      contactModal.style.display = 'block';
+      modalOverlay.style.display = 'block';
+      document.body.style.overflow = 'hidden';
+      setTimeout(() => contactModal.focus(), 100);
+    };
+    closeModalBtn.onclick = function() {
+      contactModal.style.display = 'none';
+      modalOverlay.style.display = 'none';
+      document.body.style.overflow = '';
+    };
+    modalOverlay.onclick = closeModalBtn.onclick;
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') closeModalBtn.onclick();
+    });
+
+    // Tabs das skills
+    document.querySelectorAll('.tab-btn').forEach(btn => {
+      btn.addEventListener('click', function() {
+        document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        document.querySelectorAll('.tab-panel').forEach(panel => panel.classList.add('hidden'));
+        document.getElementById(btn.getAttribute('aria-controls')).classList.remove('hidden');
+      });
+    });
+  </script>
+</body>
+</html>
